@@ -29,7 +29,7 @@ function main() {
   //   console.log(height(BST));
   //console.log(isItBST(BST))
   //   console.log(findThrid(BST));
-  console.log(isBalanced(BST));
+  //   console.log(isBalanced(BST));
 }
 
 main();
@@ -45,9 +45,7 @@ function height(tree) {
     return 0;
   }
   let rightCount = height(tree.right);
-  console.log("right", rightCount);
   let leftCount = height(tree.left);
-  console.log("left", leftCount);
   return 1 + Math.max(rightCount, leftCount);
 }
 
@@ -101,14 +99,48 @@ function isBalanced(tree) {
   let rightCount = height(tree.right);
   let leftCount = height(tree.left);
   let result = Math.abs(rightCount - leftCount);
-  return (result > 1)? false: true;
+  return result > 1 ? false : true;
 }
 
-function areTheySame(arr1, arr2){
-  if(arr1 === arr2) true;
-  if(arr1.length !== arr2.length) false;
-  if(arr1[0] !== arr2[0]) false;
+function areTheySame(arr1, arr2) {
+  if (arr1.length !== arr2.length) false;
+  if (arr1[0] !== arr2[0]) false;
+  let left1 = [];
+  let right1 = [];
+  let left2 = [];
+  let right2 = [];
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] < arr1[0]) {
+      left1.push(arr1[i]);
+    } else {
+      right1.push(arr1[i]);
+    }
+    if (arr2[i] < arr2[0]) {
+      left2.push(arr2[i]);
+    } else {
+      right2.push(arr2[i]);
+    }
+  }
 
+  console.log("left1", left1);
+  console.log("right1", right1);
+  console.log("left2", left2);
+  console.log("right2", right2);
 
-
+  if (right1.length === right2.length) {
+    for (let i = 0; i < right1.length; i++) {
+      if (right1[i] !== right2[i]) {
+        return false;
+      } else if (left1[0] !== left2[i]) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
 }
+
+// runtime would be o(n2) because we need to go through each array twice in order to find
+// a matching pair in the other array. 
+
+console.log(areTheySame([3, 5, 4, 6, 1, 0, 2], [3, 1, 5, 2, 4, 6, 0]));
